@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Serviços de PDF</title>
+</head>
+
+<body>
+    <h1>Serviços de PDF</h1>
+    <h2>Converter PDF para Texto</h2>
+    <h2>Henrique Higa - 10390109</h2>
+    <h2>Rafael Guerino - 10389162</h2>
+    <h2>Eduardo Pereira - 10389620</h2>
+    <h2>Vinícius Figueiredo - 10389905</h2>
+    <form id="pdfForm" enctype="multipart/form-data">
+        <input type="file" id="input-arquivo-converter-pdf" name="file" accept=".pdf" required>
+        <button type="submit">Converter</button>
+    </form>
+    <div id="result"></div>
+    <div id="download-link" style="margin-top: 20px;"></div>
+
+    <script>
+        document.getElementById('pdfForm').addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const formData = new FormData();
+            const file = document.getElementById('input-arquivo-converter-pdf').files[0];
+            formData.append('file', file);
+
+            const response = await fetch('/converte-pdf-para-txt', {
+                method: 'POST',
+                body: formData
+            });
+
+            const result = await response.json();
+            document.getElementById('result').innerText = JSON.stringify(result, null, 2);
+
+            if (result.link_download) {
+                const downloadDiv = document.getElementById('download-link');
+                downloadDiv.innerHTML = `<a href="${result.link_download}" download>Baixar arquivo convertido</a>`;
+            }
+        });
+    </script>
+</body>
+
+</html>

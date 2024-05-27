@@ -100,5 +100,9 @@ def emite_relatorio():
         app.logger.error(f'Erro ao emitir relatório: {str(e)}')
         return jsonify({'erro': 'Erro ao emitir relatório'}), 500
 
+@app.route('/')
+def index():
+    return send_from_directory('.', 'index.html')
+
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port=5000)
