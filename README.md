@@ -132,21 +132,6 @@ python nome_do_arquivo.py
 
 O serviço estará disponível no endereço `http://0.0.0.0:5000`.
 
-### Dockerização
-
-Para dockerizar este serviço Flask, utilize o seguinte Dockerfile:
-
-```Dockerfile
-# syntax=docker/dockerfile:1
-FROM python:3.12.3
-WORKDIR /app
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
-COPY . .
-EXPOSE 5000
-CMD [ "python3", "-m" , "flask", "run", "--host=0.0.0.0"]
-```
-
 #### Passos para Construir e Executar o Container Docker
 
 1. **Construa a imagem Docker:**
